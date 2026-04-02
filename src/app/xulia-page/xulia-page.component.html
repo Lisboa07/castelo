@@ -61,15 +61,21 @@
       <span class="galeria-fofo-heart" aria-hidden="true">♥</span>
     </p>
 
-    <button
-      type="button"
-      class="secret-folder-trigger"
-      (click)="openSecretFolder()"
-      title="Nada a ver aqui… ou será?"
-      aria-label="Abrir pasta secreta"
-    >
-      <span class="secret-folder-emoji" aria-hidden="true">📁</span>
-    </button>
+    <div class="secret-folder-anchor">
+      <div class="secret-folder-pointer" aria-hidden="true">
+        <span class="secret-folder-pointer-label">Pasta secreta</span>
+        <span class="secret-folder-pointer-arrow">→</span>
+      </div>
+      <button
+        type="button"
+        class="secret-folder-trigger"
+        (click)="openSecretFolder()"
+        title="Nada a ver aqui… ou será?"
+        aria-label="Abrir pasta secreta"
+      >
+        <span class="secret-folder-emoji" aria-hidden="true">📁</span>
+      </button>
+    </div>
   </main>
 
   <div

@@ -207,10 +207,55 @@ h1{
   }
 }
 
-/* Pasta secreta — ícone discreto no canto */
+/* Pasta secreta — texto + seta ao lado do ícone (canto inferior) */
+.secret-folder-anchor{
+  align-self:stretch;
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  justify-content:flex-end;
+  flex-wrap:wrap;
+  margin-top:20px;
+  padding:0 4px max(8px, env(safe-area-inset-bottom));
+  gap:10px;
+}
+.secret-folder-pointer{
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  gap:8px;
+  opacity:0.72;
+  pointer-events:none;
+  user-select:none;
+}
+.secret-folder-pointer-label{
+  font-size:clamp(0.72rem,2.6vw,0.82rem);
+  font-weight:700;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:rgba(196,181,253,0.95);
+  text-shadow:0 1px 10px rgba(0,0,0,0.55);
+  white-space:nowrap;
+}
+.secret-folder-pointer-arrow{
+  font-size:clamp(1.35rem,4vw,1.65rem);
+  line-height:1;
+  color:#93c5fd;
+  filter:drop-shadow(0 2px 8px rgba(147,197,253,0.35));
+  animation:secret-pointer-nudge 2s ease-in-out infinite;
+}
+@keyframes secret-pointer-nudge{
+  0%,100%{ transform:translateX(0); opacity:0.95; }
+  50%{ transform:translateX(6px); opacity:1; }
+}
+@media (prefers-reduced-motion: reduce){
+  .secret-folder-pointer-arrow{
+    animation:none;
+    transform:none;
+  }
+}
 .secret-folder-trigger{
-  align-self:flex-end;
-  margin:16px 4px 0;
+  margin:0;
   padding:10px 12px;
   border:none;
   border-radius:14px;
