@@ -57,6 +57,32 @@ h1{
   font-size:1.05rem;
   text-shadow:0 2px 12px rgba(0,0,0,0.85);
 }
+.video-section{
+  width:100%;
+  max-width:min(960px,100%);
+  margin:0 0 24px;
+  box-sizing:border-box;
+}
+.video-title{
+  margin:0 0 12px;
+  font-size:clamp(1.15rem,3vw,1.4rem);
+  font-weight:800;
+  text-shadow:0 2px 12px rgba(0,0,0,0.85);
+}
+.video-wrap{
+  border-radius:16px;
+  overflow:hidden;
+  background:#0a0a0a;
+  border:1px solid rgba(255,255,255,0.12);
+  box-shadow:0 16px 48px rgba(0,0,0,0.45);
+}
+.video{
+  display:block;
+  width:100%;
+  max-height:min(70dvh,720px);
+  height:auto;
+  vertical-align:middle;
+}
 .fotos{
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
@@ -103,4 +129,231 @@ h1{
   .foto-wrap{
     height:min(52vh,540px);
   }
+}
+
+.galeria-fofo{
+  margin:20px 0 0;
+  max-width:min(36rem,100%);
+  padding:16px 18px;
+  font-size:clamp(0.98rem,3.2vw,1.1rem);
+  line-height:1.65;
+  font-style:italic;
+  color:rgba(253,230,251,0.95);
+  text-shadow:0 2px 14px rgba(0,0,0,0.65);
+  background:rgba(244,114,182,0.08);
+  border:1px solid rgba(244,114,182,0.22);
+  border-radius:16px;
+  box-shadow:0 8px 28px rgba(0,0,0,0.25);
+}
+.galeria-fofo-heart{
+  display:inline-block;
+  margin-left:6px;
+  color:#f9a8d4;
+  font-style:normal;
+  font-size:1.05em;
+  animation:galeria-heart 2.2s ease-in-out infinite;
+}
+@keyframes galeria-heart{
+  0%,100%{ transform:scale(1); opacity:1; }
+  50%{ transform:scale(1.08); opacity:0.92; }
+}
+@media (prefers-reduced-motion: reduce){
+  .galeria-fofo-heart{
+    animation:none;
+  }
+}
+
+/* Pasta secreta — ícone discreto no canto */
+.secret-folder-trigger{
+  align-self:flex-end;
+  margin:16px 4px 0;
+  padding:10px 12px;
+  border:none;
+  border-radius:14px;
+  background:rgba(255,255,255,0.04);
+  cursor:pointer;
+  opacity:0.35;
+  transition:opacity 0.2s ease, transform 0.15s ease;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+}
+.secret-folder-trigger:hover,
+.secret-folder-trigger:focus-visible{
+  opacity:1;
+  outline:2px solid rgba(147,197,253,0.5);
+  outline-offset:2px;
+}
+.secret-folder-trigger:active{
+  transform:scale(0.96);
+}
+.secret-folder-emoji{
+  font-size:1.35rem;
+  line-height:1;
+  filter:drop-shadow(0 2px 6px rgba(0,0,0,0.4));
+}
+
+.secret-folder-overlay{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+  background:rgba(7,10,20,0.92);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  box-sizing:border-box;
+}
+.secret-folder-card{
+  max-width:min(420px, 100%);
+  max-height:min(85dvh, 720px);
+  overflow:auto;
+  padding:22px 20px 18px;
+  border-radius:20px;
+  border:1px solid rgba(167,139,250,0.35);
+  background:linear-gradient(160deg, rgba(30,27,45,0.98), rgba(15,20,40,0.98));
+  box-shadow:0 24px 64px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.06);
+  text-align:left;
+  -webkit-overflow-scrolling:touch;
+}
+.secret-folder-label{
+  margin:0 0 14px;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  color:#c4b5fd;
+}
+.secret-folder-body{
+  margin:0;
+  font-size:clamp(0.95rem, 3.1vw, 1.05rem);
+  line-height:1.65;
+  color:rgba(249,250,251,0.95);
+}
+.secret-folder-body p{
+  margin:0 0 14px;
+}
+.secret-folder-body p:last-of-type{
+  margin-bottom:0;
+}
+.secret-folder-body strong{
+  color:#fde68a;
+  font-weight:800;
+}
+.secret-folder-sign{
+  font-style:italic;
+  color:rgba(253,230,251,0.9);
+  margin-top:16px !important;
+}
+.secret-folder-close{
+  margin-top:18px;
+  width:100%;
+  padding:12px 16px;
+  border-radius:14px;
+  border:1px solid rgba(167,139,250,0.35);
+  background:rgba(139,92,246,0.2);
+  color:#f9fafb;
+  font-weight:700;
+  font-size:15px;
+  cursor:pointer;
+  touch-action:manipulation;
+}
+.secret-folder-close:hover{
+  background:rgba(139,92,246,0.32);
+}
+.secret-folder-hint{
+  margin:10px 0 0;
+  text-align:center;
+  font-size:12px;
+  color:rgba(229,231,235,0.45);
+}
+.secret-folder-hint kbd{
+  font-size:11px;
+  padding:2px 6px;
+  border-radius:6px;
+  border:1px solid rgba(255,255,255,0.12);
+  background:rgba(255,255,255,0.06);
+}
+
+.secret-password-overlay{
+  position:fixed;
+  inset:0;
+  z-index:99;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+  background:rgba(7,10,20,0.92);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  box-sizing:border-box;
+}
+.secret-password-card{
+  width:100%;
+  max-width:min(360px,100%);
+  padding:22px 20px 16px;
+  border-radius:20px;
+  border:1px solid rgba(147,197,253,0.28);
+  background:linear-gradient(165deg, rgba(20,24,40,0.98), rgba(12,16,28,0.98));
+  box-shadow:0 24px 56px rgba(0,0,0,0.5);
+  text-align:center;
+}
+.secret-password-lead{
+  margin:0 0 14px;
+  font-size:0.95rem;
+  line-height:1.45;
+  color:rgba(229,231,235,0.9);
+}
+.secret-password-input{
+  width:100%;
+  box-sizing:border-box;
+  padding:14px 16px;
+  font-size:1.35rem;
+  letter-spacing:0.35em;
+  text-align:center;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,0.18);
+  background:rgba(0,0,0,0.35);
+  color:#f9fafb;
+  font-weight:700;
+}
+.secret-password-input:focus{
+  outline:2px solid rgba(147,197,253,0.45);
+  outline-offset:2px;
+}
+.secret-password-error{
+  margin:10px 0 0;
+  font-size:0.88rem;
+  color:#fca5a5;
+}
+.secret-password-actions{
+  display:flex;
+  gap:10px;
+  margin-top:18px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+.secret-password-btn{
+  flex:1;
+  min-width:120px;
+  padding:12px 16px;
+  border-radius:14px;
+  font-weight:700;
+  font-size:15px;
+  cursor:pointer;
+  border:1px solid rgba(255,255,255,0.14);
+  touch-action:manipulation;
+}
+.secret-password-btn.ghost{
+  background:rgba(255,255,255,0.06);
+  color:#e5e7eb;
+}
+.secret-password-btn.primary{
+  background:rgba(59,130,246,0.28);
+  border-color:rgba(59,130,246,0.45);
+  color:#f9fafb;
+}
+.secret-password-btn.primary:hover{
+  background:rgba(59,130,246,0.38);
 }

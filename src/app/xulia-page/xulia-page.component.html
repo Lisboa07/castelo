@@ -5,6 +5,23 @@
   <main class="content">
     <h1>Xulia</h1>
     <p class="lead">Página dedicada à Xulia.</p>
+
+    <section class="video-section" aria-label="Vídeo">
+      <h2 class="video-title">Vídeo</h2>
+      <div class="video-wrap">
+        <video
+          class="video"
+          controls
+          playsinline
+          preload="metadata"
+          poster="assets/xulia/xulia-foto-noite.png"
+        >
+          <source src="assets/xulia/xulia-video.mp4" type="video/mp4" />
+          O teu navegador não suporta reprodução de vídeo.
+        </video>
+      </div>
+    </section>
+
     <div class="fotos">
       <div class="foto-wrap">
         <img class="foto" src="assets/xulia-fundo.png" alt="Xulia — foto 1" />
@@ -15,6 +32,98 @@
       <div class="foto-wrap">
         <img class="foto" src="assets/xulia-foto3.png" alt="Xulia — foto 3" />
       </div>
+      <div class="foto-wrap">
+        <img class="foto" src="assets/xulia/xulia-foto-noite.png" alt="Xulia — foto à noite" />
+      </div>
+      <div class="foto-wrap">
+        <img class="foto" src="assets/xulia/xulia-foto-casa.png" alt="Xulia — foto em casa" />
+      </div>
+      <div class="foto-wrap">
+        <img class="foto" src="assets/xulia/xulia-foto-cama.png" alt="Xulia — foto na cama" />
+      </div>
     </div>
+
+    <p class="galeria-fofo" role="note">
+      Cada foto aqui é um pedacinho de ti guardado com carinho — momentos leves que deixam esta página mais quentinha só por estares nela.
+      <span class="galeria-fofo-heart" aria-hidden="true">♥</span>
+    </p>
+
+    <button
+      type="button"
+      class="secret-folder-trigger"
+      (click)="openSecretFolder()"
+      title="Nada a ver aqui… ou será?"
+      aria-label="Abrir pasta secreta"
+    >
+      <span class="secret-folder-emoji" aria-hidden="true">📁</span>
+    </button>
   </main>
+
+  <div
+    class="secret-password-overlay"
+    *ngIf="showPasswordGate"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="secret-password-title"
+    (click)="closePasswordGate()"
+  >
+    <div class="secret-password-card" (click)="$event.stopPropagation()">
+      <p id="secret-password-title" class="secret-folder-label">Pasta secreta</p>
+      <p class="secret-password-lead">Digite a senha de 6 dígitos (data especial).</p>
+      <input
+        class="secret-password-input"
+        type="password"
+        inputmode="numeric"
+        maxlength="6"
+        autocomplete="one-time-code"
+        [(ngModel)]="passwordPin"
+        (keyup.enter)="submitPassword()"
+        aria-label="Senha de 6 dígitos"
+      />
+      <p class="secret-password-error" *ngIf="passwordError" role="alert">Senha incorreta. Tenta de novo.</p>
+      <div class="secret-password-actions">
+        <button type="button" class="secret-password-btn ghost" (click)="closePasswordGate()">Cancelar</button>
+        <button type="button" class="secret-password-btn primary" (click)="submitPassword()">Entrar</button>
+      </div>
+      <p class="secret-folder-hint"><kbd>Esc</kbd> fecha.</p>
+    </div>
+  </div>
+
+  <div
+    class="secret-folder-overlay"
+    *ngIf="showSecretFolder"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="secret-folder-title"
+    (click)="closeSecretFolder()"
+  >
+    <div class="secret-folder-card" (click)="$event.stopPropagation()">
+      <p id="secret-folder-title" class="secret-folder-label">Pasta secreta</p>
+      <div class="secret-folder-body">
+        <p>
+          O mundo inteiro fala em “recaída” quando alguém volta a ficar com a mesma pessoa — como se fosse falha.
+          <strong>Aqui a gente chama isso de coragem:</strong> escolher de novo quem o coração nunca largou de verdade.
+        </p>
+        <p>
+          Recaída, pra nós, é voltar pro abraço certo depois do silêncio errado. É dizer “eu ainda quero” com a voz meio trémula e o sorriso inteiro.
+          Menos orgulho, mais “fica” — e pronto, o resto a gente inventa junto.
+        </p>
+        <p>
+          <strong>Eu te amo.</strong> Falo isso aqui no escurinho desta pasta porque algumas coisas pedem um cantinho só nosso — mas o sentimento é barulhento por dentro.
+          Te amo de um jeito quieto e te amo de um jeito que não cabe em mensagem.
+        </p>
+        <p>
+          Prometo que não vou esquecer você: nem o jeito que você ri, nem o jeito que você some no travesseiro, nem o dia em que a gente decidiu tentar de novo.
+          Memória boa não tem prazo — e a minha guarda você com carinho de quem guarda música favorita.
+        </p>
+        <p>
+          Te amo de novo todo dia. Te amo quando você acorda emburrada, te amo quando você brilha, te amo quando o mundo pesa e você ainda assim fica.
+          Você não é um capítulo que eu quero pular — é a história que eu quero reler até o fim.
+        </p>
+        <p class="secret-folder-sign">Com todo o amor do mundo, quem te fez esta página. Te amo. ✨</p>
+      </div>
+      <button type="button" class="secret-folder-close" (click)="closeSecretFolder()">Fechar</button>
+      <p class="secret-folder-hint"><kbd>Esc</kbd> também fecha.</p>
+    </div>
+  </div>
 </div>
