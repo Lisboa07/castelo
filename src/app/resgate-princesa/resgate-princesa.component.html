@@ -1,0 +1,168 @@
+<div class="page phone-shell">
+  <header class="hud">
+    <div class="hud-top">
+      <div class="title">
+        <div class="badge">Jogo</div>
+        <div class="name">Resgate da Princesa</div>
+      </div>
+      <div class="stats stats--compact">
+        <div class="stat">
+          <div class="label">Fase</div>
+          <div class="value">{{ phase }} / {{ maxPhase }}</div>
+        </div>
+        <div class="stat">
+          <div class="label">Mov.</div>
+          <div class="value">{{ moves }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="hud-actions">
+      <button type="button" class="btn btn-xulia" (click)="openXuliaConfirm()">Xulia</button>
+      <button type="button" class="btn" (click)="onRestartClick()">Reiniciar</button>
+    </div>
+  </header>
+
+  <main class="stage">
+    <div class="game-column">
+      <div class="game-viewport">
+        <canvas
+          #canvas
+          class="game"
+          tabindex="0"
+          aria-label="Jogo do resgate da princesa. Arraste no mapa ou use os botões para mover."
+          (pointerdown)="onPointerDownCanvas($event)"
+          (pointerup)="onPointerUpCanvas($event)"
+          (pointercancel)="onPointerCancelCanvas($event)"
+        ></canvas>
+      </div>
+      <div class="dpad" role="group" aria-label="Controles de direção">
+        <div class="dpad-row">
+          <button
+            type="button"
+            class="dpad-btn"
+            aria-label="Cima"
+            (pointerdown)="onDpadPointerDown($event, { x: 0, y: -1 })"
+          >
+            ↑
+          </button>
+        </div>
+        <div class="dpad-row dpad-mid">
+          <button
+            type="button"
+            class="dpad-btn"
+            aria-label="Esquerda"
+            (pointerdown)="onDpadPointerDown($event, { x: -1, y: 0 })"
+          >
+            ←
+          </button>
+          <button
+            type="button"
+            class="dpad-btn"
+            aria-label="Direita"
+            (pointerdown)="onDpadPointerDown($event, { x: 1, y: 0 })"
+          >
+            →
+          </button>
+        </div>
+        <div class="dpad-row">
+          <button
+            type="button"
+            class="dpad-btn"
+            aria-label="Baixo"
+            (pointerdown)="onDpadPointerDown($event, { x: 0, y: 1 })"
+          >
+            ↓
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="help">
+      <div class="msg">{{ message }}</div>
+      <div class="keys">Toque: arraste no mapa ou botões · Teclado: WASD / setas</div>
+      <div class="legend">
+        <span><b>P</b> princesa</span>
+        <span *ngIf="phase === maxPhase"><b>✦</b> área secreta (ramal)</span>
+      </div>
+    </div>
+  </main>
+
+  <div
+    class="victory"
+    *ngIf="gameState === 'phase_complete'"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-label]="'Fase ' + phase + ' concluída'"
+  >
+    <div class="victory-card">
+      <img
+        class="victory-photo"
+        src="assets/princesa-vitoria.png"
+        [attr.alt]="'Fase ' + phase + ' concluída'"
+      />
+      <p class="victory-title">Fase {{ phase }} concluída!</p>
+      <p class="victory-moves">{{ moves }} movimentos nesta fase</p>
+      <div class="victory-actions">
+        <button type="button" class="btn victory-btn primary" (click)="onNextPhaseClick()">Próxima fase</button>
+        <button type="button" class="btn victory-btn ghost" (click)="onRestartClick()">Reiniciar do início</button>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="victory"
+    *ngIf="gameState === 'game_complete'"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Todas as fases concluídas"
+  >
+    <div class="victory-card">
+      <img
+        class="victory-photo"
+        src="assets/princesa-vitoria-fase2.png"
+        alt="Princesa resgatada — última fase"
+      />
+      <p class="victory-title">Você resgatou a princesa na última fase!</p>
+      <p class="victory-moves">{{ moves }} movimentos nesta fase</p>
+      <button type="button" class="btn victory-btn" (click)="onRestartClick()">Jogar de novo</button>
+    </div>
+  </div>
+
+  <div
+    class="victory secret-room"
+    *ngIf="showSecretRoom"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="secret-room-title"
+  >
+    <div class="victory-card secret-room-card">
+      <p id="secret-room-title" class="secret-room-badge">Área secreta</p>
+      <p class="victory-title secret-room-lead">
+        Poucos jogadores desviam do caminho até aqui. Esta parte do castelo não aparece em nenhum mapa.
+      </p>
+      <img class="victory-photo" src="assets/xulia-foto3.png" alt="Surpresa no esconderijo" />
+      <p class="victory-moves secret-room-quote">
+        “Quem segue o caminho até o fim do ramal encontra um brilho a mais no dia.”
+      </p>
+      <button type="button" class="btn victory-btn primary" (click)="closeSecretRoom()">Continuar o jogo</button>
+      <p class="secret-room-hint">Dica: <kbd>Esc</kbd> também fecha.</p>
+    </div>
+  </div>
+
+  <div
+    class="confirm-xulia"
+    *ngIf="showXuliaConfirm"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="xulia-confirm-title"
+  >
+    <div class="confirm-xulia-card">
+      <p id="xulia-confirm-title" class="confirm-xulia-text">
+        Você quer mesmo entrar na página Xulia?
+      </p>
+      <div class="confirm-xulia-actions">
+        <button type="button" class="btn confirm-yes" (click)="confirmEnterXulia()">Sim</button>
+        <button type="button" class="btn confirm-no" (click)="cancelXuliaConfirm()">Não</button>
+      </div>
+    </div>
+  </div>
+</div>

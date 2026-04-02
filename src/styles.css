@@ -1,1 +1,25 @@
-/* You can add global styles to this file, and also import other style files */
+/*
+  Referência de layout: tela tipo 6,5" @ 458 ppi
+  — retrato 1242 × 2688 px (físico), ~414 × 896 pt lógicos (@3×).
+*/
+:root {
+  --phone-ref-px-w: 1242;
+  --phone-ref-px-h: 2688;
+  --phone-content-max: min(100vw, 1242px);
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  color-scheme: dark;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: #070a14;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}

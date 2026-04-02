@@ -1,0 +1,106 @@
+.xulia-page{
+  min-height:100dvh;
+  display:flex;
+  flex-direction:column;
+  position:relative;
+  color:#f9fafb;
+  background-color:#070a14;
+}
+.xulia-page::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:linear-gradient(to bottom,rgba(7,10,20,0.55),rgba(7,10,20,0.88));
+  pointer-events:none;
+  z-index:0;
+}
+.top{
+  position:relative;
+  z-index:1;
+  padding:16px 18px;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  background:rgba(7,10,20,0.55);
+  backdrop-filter:blur(8px);
+}
+.back{
+  color:#93c5fd;
+  text-decoration:none;
+  font-weight:600;
+  text-shadow:0 1px 8px rgba(0,0,0,0.55);
+}
+.back:hover{
+  text-decoration:underline;
+}
+.content{
+  position:relative;
+  z-index:1;
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  padding:16px 12px 28px;
+  text-align:center;
+  width:100%;
+  box-sizing:border-box;
+}
+h1{
+  margin:0 0 8px;
+  font-size:clamp(1.75rem,4vw,2.25rem);
+  font-weight:800;
+  text-shadow:0 2px 16px rgba(0,0,0,0.85);
+}
+.lead{
+  margin:0 0 16px;
+  max-width:28rem;
+  color:rgba(249,250,251,0.95);
+  font-size:1.05rem;
+  text-shadow:0 2px 12px rgba(0,0,0,0.85);
+}
+.fotos{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:clamp(8px,2vw,14px);
+  width:100%;
+  max-width:min(1200px,100%);
+  align-items:stretch;
+}
+.foto-wrap{
+  position:relative;
+  min-height:0;
+  height:min(62vh,620px);
+  border-radius:14px;
+  overflow:hidden;
+  background:#0a0a0a;
+  box-shadow:0 12px 36px rgba(0,0,0,0.5);
+  border:1px solid rgba(255,255,255,0.1);
+}
+.foto{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+}
+/* Primeira foto: menos zoom (mostra mais da imagem; barras escuras se precisar). */
+.foto-wrap:first-child .foto{
+  object-fit:contain;
+  object-position:center;
+}
+@media (max-width:768px){
+  .fotos{
+    grid-template-columns:1fr;
+  }
+  .foto-wrap{
+    height:min(48vh,480px);
+  }
+}
+@media (min-width:769px) and (max-width:1024px){
+  .fotos{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
+  .foto-wrap{
+    height:min(52vh,540px);
+  }
+}
