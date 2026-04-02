@@ -330,6 +330,21 @@ h1{
   color:#fde68a;
   font-weight:800;
 }
+.secret-folder-video-wrap{
+  margin:0 0 16px;
+  border-radius:12px;
+  overflow:hidden;
+  background:#0a0a0a;
+  border:1px solid rgba(255,255,255,0.1);
+  box-shadow:0 8px 24px rgba(0,0,0,0.35);
+}
+.secret-folder-video{
+  display:block;
+  width:100%;
+  max-height:min(38dvh,280px);
+  height:auto;
+  vertical-align:middle;
+}
 .secret-folder-sign{
   font-style:italic;
   color:rgba(253,230,251,0.9);
